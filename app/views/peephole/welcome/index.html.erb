@@ -8,9 +8,7 @@
       <tr>
         <td><%= link_to logfile.filename, logfile_path(logfile) %></td>
         <td class="text-right">
-          <%= link_to download_logfile_path(logfile) do %>
-            <span class="glyphicon glyphicon-download-alt"></span>
-          <% end %>
+          <%= link_to 'Download', download_logfile_path(logfile), class: 'btn btn-default btn-sm' %>
         </td>
       </tr>
     <% end %>
