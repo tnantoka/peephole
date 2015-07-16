@@ -55,5 +55,5 @@ MIT
 
 ## Author
 
-[@tnantoka][https://twitter.com/tnantoka]
+[@tnantoka](https://twitter.com/tnantoka)
 
