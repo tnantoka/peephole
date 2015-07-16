@@ -41,12 +41,9 @@ module Peephole
         when TYPE::STARTED
           logmap[logline.uuid] = logline if logline.uuid.present?
         when TYPE::PARAMS
-          if logmap[logline.uuid].present?
-            logmap[logline.uuid].params = logline.params
-            loglines << logmap[logline.uuid]
-          else
-            loglines << logline
-          end
+          line = logmap[logline.uuid].presence || logline
+          line.params = logline.params
+          loglines << line
         when TYPE::COMPLETED
           logmap[logline.uuid].try(:status=, logline.status)
         end
@@ -79,7 +76,7 @@ module Peephole
             v.each do |k2, v2|
               params["#{k}[#{k2}]"] = v2
             end
-            params.delete(:k)
+            params.delete(k)
           end
         end
         self.params = params
