@@ -17,6 +17,7 @@ gem 'peephole'
 $ bundle
 
 $ rails g peephole:install
+       route  mount Peephole::Engine => "/peephole"
       create  config/initializers/log_tags.rb
       create  config/initializers/peephole.rb
 ```
