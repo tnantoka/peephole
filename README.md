@@ -29,8 +29,12 @@ Peephole.configure do |config|
   config.paginates_per = 200
   config.peeper? do
     # current_user.role.admin?
+
     # admin_user_signed_in?
-    # basic auth
+
+    # authenticate_or_request_with_http_basic do |user, pass|
+    #   user == 'user' && pass == 'pass'
+    # end
   end
 end
 ```
