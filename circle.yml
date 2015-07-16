@@ -1,4 +1,4 @@
 database:
   override:
-    - cd test/dummy; bundle exec rake db:create --trace
+    - cd spec/dummy; bundle exec rake db:create --trace
 
