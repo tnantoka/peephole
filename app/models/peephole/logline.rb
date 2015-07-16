@@ -30,22 +30,26 @@ module Peephole
             eof = false
             break
           end
-          logline = new(line, i)
-          case logline.type
-          when TYPE::STARTED
-            logmap[logline.uuid] = logline if logline.uuid.present?
-          when TYPE::PARAMS
-            if logmap[logline.uuid].present?
-              logmap[logline.uuid].params = logline.params
-              loglines << logmap[logline.uuid]
-            else
-              loglines << logline
-            end
-          when TYPE::COMPLETED
-            logmap[logline.uuid].try(:status=, logline.status)
-          end
+          parse(line, i, loglines, logmap)
         end
         [loglines, eof]
+      end
+
+      def parse(line, i, loglines, logmap)
+        logline = new(line, i)
+        case logline.type
+        when TYPE::STARTED
+          logmap[logline.uuid] = logline if logline.uuid.present?
+        when TYPE::PARAMS
+          if logmap[logline.uuid].present?
+            logmap[logline.uuid].params = logline.params
+            loglines << logmap[logline.uuid]
+          else
+            loglines << logline
+          end
+        when TYPE::COMPLETED
+          logmap[logline.uuid].try(:status=, logline.status)
+        end
       end
 
       def each(path, page, &block)
