@@ -1,0 +1,29 @@
+#peephole .table pre {
+  margin-bottom: 0;
+}
+
+#peephole .text-break {
+  word-break: break-all;
+}
+
+#peephole .navbar {
+  border-left: 0;
+  border-right: 0;
+}
+
+#peephole .navbar.navbar-default {
+  background: none;
+}
+
+#peephole .well {
+  box-shadow: none;
+}
+
+#peephole .navbar,
+#peephole .breadcrumb,
+#peephole .pager li a,
+#peephole .well, 
+#peephole pre,
+#peephole .label {
+  border-radius: 0;
+}

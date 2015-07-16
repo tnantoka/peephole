@@ -1,0 +1,24 @@
+<nav>
+  <ul class="pager">
+    <% if @page == 1 %>
+      <li class="previous disabled"><a>&larr; Older</a></li>
+    <% else %>
+      <li class="previous">
+        <%= link_to url_for(params.merge(page: @page - 1)) do %>
+          &larr; Older
+        <% end %>
+      </li>
+    <% end %>
+    <% if @eof %>
+      <li class="next disabled"><a>Newer &rarr;</a></li>
+    <% else %>
+      <li class="next">
+        <%= link_to url_for(params.merge(page: @page + 1)) do %>
+          Newer &rarr;
+        <% end %>
+      </li>
+    <% end %>
+  </ul>
+</nav>
+
+

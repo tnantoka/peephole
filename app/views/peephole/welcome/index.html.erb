@@ -1,0 +1,19 @@
+<ol class="breadcrumb">
+  <li class="active">Home</li>
+</ol>
+
+<table class="table">
+  <tbody>
+    <% @logfiles.each do |logfile| %>
+      <tr>
+        <td><%= link_to logfile.filename, logfile_path(logfile) %></td>
+        <td class="text-right">
+          <%= link_to download_logfile_path(logfile) do %>
+            <span class="glyphicon glyphicon-download-alt"></span>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

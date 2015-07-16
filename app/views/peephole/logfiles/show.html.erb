@@ -1,0 +1,55 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', :root %></li>
+  <li><%= link_to @logfile.filename, logfile_path(@logfile) %></li>
+  <li class="active">
+    Displaying lines <%= Peephole::Logline.first(@page) %> - <%= Peephole::Logline.last(@page) %>
+  </li>
+</ol>
+
+<%= render 'pager' %>
+
+<table class="table table-bordered">
+  <% if @loglines.present? %>
+    <tr>
+      <td>#num</td>
+      <td>
+        started_at<br>
+        <span class="text-muted">uuid</span>
+      </td>
+      <td>
+        method <code>target</code>
+      </td>
+      <td>status</td>
+      <td colspan="2">params</td>
+    </tr>
+    <% @loglines.each do |logline| %>
+      <% logline.params.each_with_index do |(key, value), i| %>
+        <tr>
+          <% if i.zero? %>
+            <% rowspan = logline.params.size %>
+            <td rowspan="<%= rowspan %>">
+              #<%= logline.num %>
+            </td>
+            <td rowspan="<%= rowspan %>" class="text-break">
+              <%= logline.started_at %><br>
+              <span class="text-muted"><%= logline.uuid %></span>
+            </td>
+            <td rowspan="<%= rowspan %>" class="text-break">
+              <%= logline.method %>
+              <code><%= logline.target %></code>
+            </td>
+            <td rowspan="<%= rowspan %>"><%= status_label(logline.status) %></td>
+          <% end %>
+          <td><%= key %></td>
+          <td>
+            <pre><%= value %></pre>
+          </td>
+        </tr>
+      <% end %>
+    <% end %>
+  <% else %>
+    <div class="well">No logline found.</div>
+  <% end %>
+</table>
+
+<%= render 'pager' %>
