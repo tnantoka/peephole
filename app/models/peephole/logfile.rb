@@ -35,5 +35,13 @@ module Peephole
     def loglines(page)
       Logline.where(path, page)
     end
+
+    def size
+      File.size(path) / 1024
+    end
+
+    def updated_at
+      File.mtime(path)
+    end
   end
 end

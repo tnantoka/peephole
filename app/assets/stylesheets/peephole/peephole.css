@@ -1,9 +1,13 @@
-#peephole .table pre {
-  margin-bottom: 0;
-}
+/* Modules */
 
 #peephole .text-break {
   word-break: break-all;
+}
+
+/* Override */
+
+#peephole .table pre {
+  margin-bottom: 0;
 }
 
 #peephole .navbar {
@@ -19,12 +23,18 @@
   box-shadow: none;
 }
 
+#peephole .pager {
+  text-align: left;
+  margin-top: 0;
+}
+
 #peephole .btn,
 #peephole .navbar,
 #peephole .breadcrumb,
 #peephole .pager li a,
 #peephole .well, 
 #peephole pre,
-#peephole .label {
+#peephole .label,
+#peephole .form-control {
   border-radius: 0;
 }

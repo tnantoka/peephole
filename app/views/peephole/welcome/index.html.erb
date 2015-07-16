@@ -7,6 +7,8 @@
     <% @logfiles.each do |logfile| %>
       <tr>
         <td><%= link_to logfile.filename, logfile_path(logfile) %></td>
+        <td><%= logfile.size %> KB</td>
+        <td><%= logfile.updated_at %></td>
         <td class="text-right">
           <%= link_to 'Download', download_logfile_path(logfile), class: 'btn btn-default btn-sm' %>
         </td>

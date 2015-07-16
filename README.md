@@ -34,7 +34,7 @@ Peephole.configure do |config|
     # admin_user_signed_in?
 
     # authenticate_or_request_with_http_basic do |user, pass|
-    #   user == 'user' && pass == 'pass'
+    #   user == ENV['PEEPHOLE_USER'] && pass == ENV['PEEPHOLE_PASS']
     # end
   end
 end

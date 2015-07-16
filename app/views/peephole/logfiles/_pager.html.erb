@@ -1,24 +1,37 @@
-<nav>
-  <ul class="pager">
-    <% if @page == 1 %>
-      <li class="previous disabled"><a>&larr; Older</a></li>
-    <% else %>
-      <li class="previous">
-        <%= link_to url_for(params.merge(page: @page - 1)) do %>
-          &larr; Older
+<div class="row">
+  <div class="col-sm-10">
+    <nav>
+      <ul class="pager">
+        <% if @page == 1 %>
+          <li class="disabled"><a>&larr; Older</a></li>
+        <% else %>
+          <li>
+            <%= link_to url_for(params.merge(page: @page - 1)) do %>
+              &larr; Older
+            <% end %>
+          </li>
         <% end %>
-      </li>
-    <% end %>
-    <% if @eof %>
-      <li class="next disabled"><a>Newer &rarr;</a></li>
-    <% else %>
-      <li class="next">
-        <%= link_to url_for(params.merge(page: @page + 1)) do %>
-          Newer &rarr;
+        <% if @eof %>
+          <li class="disabled"><a>Newer &rarr;</a></li>
+        <% else %>
+          <li>
+            <%= link_to url_for(params.merge(page: @page + 1)) do %>
+              Newer &rarr;
+            <% end %>
+          </li>
         <% end %>
-      </li>
-    <% end %>
-  </ul>
-</nav>
-
+      </ul>
+    </nav>
+  </div>
+  <div class="col-sm-2">
+    <form action="<%= url_for(params) %>">
+      <div class="input-group">
+        <input type="number" name="page" value="<%= @page %>" class="form-control" placeholder="Page">
+        <span class="input-group-btn">
+          <input type="submit" class="btn btn-default" value="Go">
+        </span>
+      </div>
+    </form>
+  </div>
+</div>
 
