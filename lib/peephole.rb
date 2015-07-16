@@ -1,5 +1,6 @@
 require "peephole/engine"
 require "peephole/config"
+require "peephole/version"
 
 module Peephole
   class << self
