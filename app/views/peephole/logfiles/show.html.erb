@@ -10,18 +10,20 @@
 
 <table class="table table-bordered">
   <% if @loglines.present? %>
-    <tr>
-      <td>#num</td>
-      <td>
-        started_at<br>
-        <span class="text-muted">uuid</span>
-      </td>
-      <td>
-        method <code>target</code>
-      </td>
-      <td>status</td>
-      <td colspan="2">params</td>
-    </tr>
+    <thead>
+      <tr>
+        <td>#num</td>
+        <td>
+          started_at<br>
+          <span class="text-muted">uuid</span>
+        </td>
+        <td>
+          method <code>target</code>
+        </td>
+        <td>status</td>
+        <td colspan="2">params</td>
+      </tr>
+    </thead>
     <% @loglines.each do |logline| %>
       <% logline.params.each_with_index do |(key, value), i| %>
         <tr>

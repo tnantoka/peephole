@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Peephole</title>
+  <title>
+    <% if @logfile.present? %>
+      <%= "#{@logfile.filename} ##{@page}" %> -
+    <% end %>
+    Peephole
+  </title>
   <%= stylesheet_link_tag    "peephole/application", media: "all" %>
   <%= javascript_include_tag "peephole/application" %>
   <%= csrf_meta_tags %>

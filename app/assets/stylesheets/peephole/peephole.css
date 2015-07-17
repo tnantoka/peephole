@@ -10,6 +10,10 @@
   margin-bottom: 0;
 }
 
+#peephole thead tr {
+  background: #f9f9f9;
+}
+
 #peephole .navbar {
   border-left: 0;
   border-right: 0;

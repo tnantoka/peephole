@@ -30,13 +30,13 @@ module Peephole
             eof = false
             break
           end
-          parse(line, i, loglines, logmap)
+          parse(line, i + 1, loglines, logmap)
         end
         [loglines, eof]
       end
 
-      def parse(line, i, loglines, logmap)
-        logline = new(line, i)
+      def parse(line, num, loglines, logmap)
+        logline = new(line, num)
         case logline.type
         when TYPE::STARTED
           logmap[logline.uuid] = logline if logline.uuid.present?
