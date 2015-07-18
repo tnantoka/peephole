@@ -9,6 +9,12 @@ A log viewer engine for Rails.
 
 ![](screenshot.png)
 
+## Requirement
+
+- Ruby 2.2
+- Rails 4.2
+- `Rails.application.config.log_tags = [:uuid]`
+
 ## Installation
 
 ```

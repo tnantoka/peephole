@@ -21,8 +21,8 @@ module Peephole
       end
 
       def lines(path, page)
-        lines = []
-        map = {}
+        loglines = []
+        logmap = {}
         eof = true
         each(path, page) do |line, i|
           next if i < first_line(page)
@@ -30,9 +30,9 @@ module Peephole
             eof = false
             break
           end
-          parse(line, i + 1, lines, map)
+          parse(line, i + 1, loglines, logmap)
         end
-        [lines, eof]
+        [loglines, eof]
       end
 
       def first_byte(page)
@@ -44,29 +44,12 @@ module Peephole
       end
 
       def bytes(path, page)
-        eof = true
-        raw = ''
-
-        case path.to_s
-        when /\.gz\z/
-          Zlib::GzipReader.open(path) do |f|
-            f.each do |line|
-              next if f.pos < first_byte(page)
-              if f.pos >= last_byte(page)
-                eof = false
-                break
-              end
-              raw << line
-            end
-          end
-        else
-          open(path) do |f|
-            f.seek(first_byte(page))
-            raw = f.read(Peephole.config.bytes_per)
-            eof = f.eof?
-          end
-        end
-
+        raw, eof = case path.to_s
+                   when /\.gz\z/
+                     raw_gz(path, page)
+                   else
+                     raw_txt(path, page)
+                   end
         [raw, eof]
       end
 
@@ -79,18 +62,22 @@ module Peephole
           page * Peephole.config.send("#{type}s_per")
         end
 
-        def parse(line, num, lines, map)
+        def parse(line, num, loglines, logmap)
           logline = new(line, num)
           case logline.type
           when TYPE::STARTED
-            map[logline.uuid] = logline if logline.uuid.present?
+            logmap[logline.uuid] = logline if logline.uuid.present?
           when TYPE::PARAMS
-            line = map[logline.uuid].presence || logline
-            line.params = logline.params
-            lines << line
+            parse_params(logline, loglines, logmap)
           when TYPE::COMPLETED
-            map[logline.uuid].try(:status=, logline.status)
+            logmap[logline.uuid].try(:status=, logline.status)
           end
+        end
+
+        def parse_params(logline, loglines, logmap)
+          l = logmap[logline.uuid].presence || logline
+          l.params = logline.params
+          loglines << l
         end
 
         def each(path, page, &block)
@@ -101,6 +88,33 @@ module Peephole
             IO.foreach(path)
           end
           iterator.with_index(&block)
+        end
+
+        def raw_gz(path, page)
+          eof = true
+          raw = ''
+          Zlib::GzipReader.open(path) do |f|
+            f.each do |line|
+              next if f.pos < first_byte(page)
+              if f.pos >= last_byte(page)
+                eof = false
+                break
+              end
+              raw << line
+            end
+          end
+          [raw, eof]
+        end
+
+        def raw_txt(path, page)
+          eof = false
+          raw = ''
+          open(path) do |f|
+            f.seek(first_byte(page))
+            raw = f.read(Peephole.config.bytes_per)
+            eof = f.eof?
+          end
+          [raw, eof]
         end
     end
 
