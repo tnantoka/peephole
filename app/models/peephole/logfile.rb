@@ -5,10 +5,6 @@ module Peephole
     LOG_PATH = Rails.root.join('log')
 
     class << self
-      def glob
-        Dir.glob(LOG_PATH.join("#{Rails.env}.log*"))
-      end
-
       def all
         glob.map do |path|
           Logfile.new(path)
@@ -21,6 +17,11 @@ module Peephole
         end
         Logfile.new(path)
       end
+
+      private
+        def glob
+          Dir.glob(LOG_PATH.join("#{Rails.env}.log*"))
+        end
     end
 
     def initialize(path)
@@ -32,8 +33,12 @@ module Peephole
       filename
     end
 
-    def loglines(page)
-      Logline.where(path, page)
+    def lines(page)
+      Logline.lines(path, page)
+    end
+
+    def bytes(page)
+      Logline.bytes(path, page)
     end
 
     def size
@@ -42,6 +47,10 @@ module Peephole
 
     def updated_at
       File.mtime(path)
+    end
+
+    def gz?
+      File.extname(path) == '.gz'
     end
   end
 end

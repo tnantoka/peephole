@@ -68,6 +68,6 @@ RSpec.configure do |config|
       gz.write(File.read(fixture))
     end
 
-    Peephole.config.paginates_per = 10
+    Peephole.config.lines_per = 10
   end
 end

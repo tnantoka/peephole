@@ -1,5 +1,6 @@
 Peephole.configure do |config|
-  config.paginates_per = 200
+  config.lines_per = 200
+  config.bytes_per = 5000
   config.peeper? do
     !Rails.env.production?
   end

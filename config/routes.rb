@@ -5,6 +5,7 @@ Peephole::Engine.routes.draw do
   resources :logfiles, only: [:show], id: /.+/ do
     member do
       get :download
+      get :raw
     end
   end
 end

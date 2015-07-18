@@ -27,7 +27,8 @@ $ rails g peephole:install
 ```
 # config/initializers/peephole.rb
 Peephole.configure do |config|
-  config.paginates_per = 200
+  config.lines_per = 200
+  config.bytes_per = 5000
   config.peeper? do
     # current_user.role.admin?
 

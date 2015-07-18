@@ -1,0 +1,11 @@
+<ol class="breadcrumb">
+  <li><%= link_to 'Home', :root %></li>
+  <li><%= link_to @logfile.filename, type == :line ? logfile_path(@logfile) : raw_logfile_path(@logfile) %></li>
+  <li class="active">
+    Displaying <%= type %>s
+    <%= Peephole::Logline.send("first_#{type}", @page) %>
+    -
+    <%= Peephole::Logline.send("last_#{type}", @page) %>
+  </li>
+</ol>
+

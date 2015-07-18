@@ -10,7 +10,7 @@ module Peephole
 
     shared_examples_for 'show logfile' do
       before do
-        get :show, id: filename, page: page
+        get action, id: filename, page: page
       end
       it 'returns http success' do
         expect(response).to have_http_status(:success)
@@ -21,6 +21,7 @@ module Peephole
     end
 
     describe '#show' do
+      let(:action) { :show }
       context 'without params' do
         it_behaves_like 'show logfile'
       end
@@ -34,7 +35,18 @@ module Peephole
       end
     end
 
-    describe '#donwload' do
+    describe '#raw' do
+      let(:action) { :raw }
+      context 'without params' do
+        it_behaves_like 'show logfile'
+      end
+      context 'with page' do
+        let(:page) { 2 }
+        it_behaves_like 'show logfile'
+      end
+    end
+
+    describe '#download' do
       before do
         get :download, id: filename
       end

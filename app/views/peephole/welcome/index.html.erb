@@ -10,7 +10,12 @@
         <td><%= logfile.size %> KB</td>
         <td><%= logfile.updated_at %></td>
         <td class="text-right">
-          <%= link_to 'Download', download_logfile_path(logfile), class: 'btn btn-default btn-sm' %>
+          <div class="btn-group btn-group-sm">
+            <% unless logfile.gz? %>
+              <%= link_to 'Raw', raw_logfile_path(logfile), class: 'btn btn-default' %>
+            <% end %>
+            <%= link_to 'Download', download_logfile_path(logfile), class: 'btn btn-default' %>
+          </div>
         </td>
       </tr>
     <% end %>

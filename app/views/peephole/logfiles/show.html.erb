@@ -1,11 +1,4 @@
-<ol class="breadcrumb">
-  <li><%= link_to 'Home', :root %></li>
-  <li><%= link_to @logfile.filename, logfile_path(@logfile) %></li>
-  <li class="active">
-    Displaying lines <%= Peephole::Logline.first(@page) %> - <%= Peephole::Logline.last(@page) %>
-  </li>
-</ol>
-
+<%= render 'breadcrumb', type: :line %>
 <%= render 'pager' %>
 
 <table class="table table-bordered">

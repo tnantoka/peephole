@@ -2,8 +2,11 @@ module Peephole
   class Config
     include ActiveSupport::Configurable
 
-    config_accessor :paginates_per do
+    config_accessor :lines_per do
       200 
+    end
+    config_accessor :bytes_per do
+      5000
     end
 
     DEFAULT_PEEPER = proc { !Rails.env.production? }
