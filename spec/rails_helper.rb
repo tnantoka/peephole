@@ -69,5 +69,6 @@ RSpec.configure do |config|
     end
 
     Peephole.config.lines_per = 10
+    Peephole.config.bytes_per = 500
   end
 end

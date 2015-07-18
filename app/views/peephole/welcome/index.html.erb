@@ -11,9 +11,7 @@
         <td><%= logfile.updated_at %></td>
         <td class="text-right">
           <div class="btn-group btn-group-sm">
-            <% unless logfile.gz? %>
-              <%= link_to 'Raw', raw_logfile_path(logfile), class: 'btn btn-default' %>
-            <% end %>
+            <%= link_to 'Raw', raw_logfile_path(logfile), class: 'btn btn-default' %>
             <%= link_to 'Download', download_logfile_path(logfile), class: 'btn btn-default' %>
           </div>
         </td>

@@ -44,6 +44,10 @@ module Peephole
         let(:page) { 2 }
         it_behaves_like 'show logfile'
       end
+      context 'when file is gz' do
+        let(:filename) { 'test.log.2.gz' }
+        it_behaves_like 'show logfile'
+      end
     end
 
     describe '#download' do

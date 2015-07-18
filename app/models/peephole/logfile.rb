@@ -42,15 +42,11 @@ module Peephole
     end
 
     def size
-      File.size(path) / 1024
+      (File.size(path) / 1024.0).ceil
     end
 
     def updated_at
       File.mtime(path)
-    end
-
-    def gz?
-      File.extname(path) == '.gz'
     end
   end
 end

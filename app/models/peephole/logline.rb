@@ -44,13 +44,29 @@ module Peephole
       end
 
       def bytes(path, page)
-        eof = false
+        eof = true
         raw = ''
-        open(path) do |f|
-          f.seek(first_byte(page))
-          raw = f.read(Peephole.config.bytes_per)
-          eof = f.eof?
+
+        case path.to_s
+        when /\.gz\z/
+          Zlib::GzipReader.open(path) do |f|
+            f.each do |line|
+              next if f.pos < first_byte(page)
+              if f.pos >= last_byte(page)
+                eof = false
+                break
+              end
+              raw << line
+            end
+          end
+        else
+          open(path) do |f|
+            f.seek(first_byte(page))
+            raw = f.read(Peephole.config.bytes_per)
+            eof = f.eof?
+          end
         end
+
         [raw, eof]
       end
 
