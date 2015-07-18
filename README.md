@@ -1,5 +1,6 @@
 # Peephole
 
+[![Gem Version](https://badge.fury.io/rb/peephole.svg)](http://badge.fury.io/rb/peephole)
 [![Circle CI](https://circleci.com/gh/tnantoka/peephole.svg?style=svg)](https://circleci.com/gh/tnantoka/peephole)
 [![Code Climate](https://codeclimate.com/github/tnantoka/peephole/badges/gpa.svg)](https://codeclimate.com/github/tnantoka/peephole)
 [![Test Coverage](https://codeclimate.com/github/tnantoka/peephole/badges/coverage.svg)](https://codeclimate.com/github/tnantoka/peephole/coverage)
