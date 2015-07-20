@@ -3,7 +3,7 @@ module Peephole
     attr_accessor :uuid, :type, :num
     attr_accessor :method, :target, :started_at
     attr_accessor :params
-    attr_accessor :status
+    attr_accessor :status, :duration
 
     module TYPE
       STARTED = 1
@@ -71,6 +71,7 @@ module Peephole
             parse_params(logline, loglines, logmap)
           when TYPE::COMPLETED
             logmap[logline.uuid].try(:status=, logline.status)
+            logmap[logline.uuid].try(:duration=, logline.duration)
           end
         end
 
@@ -139,8 +140,9 @@ module Peephole
         end
         self.params = params
         self.type = TYPE::PARAMS
-      when / Completed (\d+)/
+      when / Completed (\d+) .+ in (.+ms) \(/
         self.status = $1
+        self.duration = $2
         self.type = TYPE::COMPLETED
       end
       if line =~ /\[(\w+\-\w+\-\w+\-\w+\-\w+)\] /

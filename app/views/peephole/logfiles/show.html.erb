@@ -14,6 +14,7 @@
           method <code>target</code>
         </td>
         <td>status</td>
+        <td>duration</td>
         <td colspan="2">params</td>
       </tr>
     </thead>
@@ -34,6 +35,7 @@
               <code><%= logline.target %></code>
             </td>
             <td rowspan="<%= rowspan %>"><%= status_label(logline.status) %></td>
+            <td rowspan="<%= rowspan %>"><%= logline.duration %></td>
           <% end %>
           <td><%= key %></td>
           <td>
